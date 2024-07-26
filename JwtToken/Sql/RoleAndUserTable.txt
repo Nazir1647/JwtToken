@@ -1,0 +1,90 @@
+﻿*****************************User***************************************************
+User Table ===>
+
+USE [Clone_db]
+GO
+
+/****** Object:  Table [dbo].[Users]    Script Date: 26-07-2024 23:14:26 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Users](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+	[username] [nvarchar](50) NOT NULL,
+	[password] [nvarchar](50) NOT NULL,
+	[isvalid] [bit] NULL,
+	[CreateDate] [datetime] NULL,
+	[CreateUser] [nvarchar](30) NULL,
+	[ModifyDate] [datetime] NULL,
+	[ModifyUser] [nvarchar](30) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Users] ADD  DEFAULT ((0)) FOR [isvalid]
+GO
+
+*****************************Roles***************************************************
+Roles ===>
+
+USE [Clone_db]
+GO
+
+/****** Object:  Table [dbo].[Roles]    Script Date: 26-07-2024 23:14:54 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Roles](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+*****************************User_Roles***************************************************
+User_Roles ===>
+
+USE [Clone_db]
+GO
+
+/****** Object:  Table [dbo].[User_Roles]    Script Date: 26-07-2024 23:16:05 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[User_Roles](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[userId] [int] NOT NULL,
+	[roleId] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[User_Roles]  WITH CHECK ADD FOREIGN KEY([roleId])
+REFERENCES [dbo].[Roles] ([id])
+GO
+
+ALTER TABLE [dbo].[User_Roles]  WITH CHECK ADD FOREIGN KEY([userId])
+REFERENCES [dbo].[Users] ([id])
+GO
+
+
