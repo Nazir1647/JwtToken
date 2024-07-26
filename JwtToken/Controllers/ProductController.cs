@@ -19,7 +19,7 @@ namespace JwtToken.Controllers
         [HttpGet]
         [Route("Get")]
        // [Authorize(Roles = "user")]
-        [Authorize]
+       // [Authorize]
         public IActionResult Get()
         {
             var data = _context.Products.ToList();

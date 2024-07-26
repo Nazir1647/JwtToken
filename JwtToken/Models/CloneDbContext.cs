@@ -15,6 +15,8 @@ public partial class CloneDbContext : DbContext
     {
     }
 
+    public virtual DbSet<ApiKey> ApiKeys { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
@@ -23,8 +25,18 @@ public partial class CloneDbContext : DbContext
 
     public virtual DbSet<UserRole> UserRoles { get; set; }
 
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<ApiKey>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__ApiKeys__3214EC07E919CFA7");
+
+            entity.Property(e => e.ApiKey1)
+                .HasMaxLength(100)
+                .HasColumnName("ApiKey");
+        });
+
         modelBuilder.Entity<Product>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__product__3213E83F14277DBB");

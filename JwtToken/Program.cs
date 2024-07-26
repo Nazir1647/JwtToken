@@ -1,3 +1,4 @@
+using JwtToken.Middleware;
 using JwtToken.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -54,6 +55,8 @@ builder.Services.AddDbContext<CloneDbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("dbcs"));
 });
 
+//builder.Services.AddTransient<IApiKeyValidation, ApiKeyValidation>();
+
 // JWT 
 
 builder.Services.AddAuthentication(options =>
@@ -99,7 +102,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseMiddleware<ApiKeyMiddleware>();
 app.UseCors("AllowSpecificOrigin");
 app.UseHttpsRedirection();
 
