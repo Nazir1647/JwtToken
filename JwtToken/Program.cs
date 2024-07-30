@@ -47,6 +47,7 @@ builder.Services.AddSwaggerGen(c =>
                 new string[] {}
             }
         });
+    c.OperationFilter<CustomHeaderService>();
 });
 
 
